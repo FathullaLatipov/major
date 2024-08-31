@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import ServiceImagesModel, ServiceModel, BannerModel
+from .models import ServiceImagesModel, ServiceModel, BannerModel, ResourceModel, ResourceImagesModel
 
 
 class BannerSerializer(ModelSerializer):
@@ -19,6 +19,19 @@ class ServiceModelSerializer(ModelSerializer):
 
     class Meta:
         model = ServiceModel
+        fields = '__all__'
+        depth = 1
+
+class ResourceImagesModelSerializer(ModelSerializer):
+    class Meta:
+        model = ResourceImagesModel
+        fields = '__all__'
+
+class ResourceModelSerializer(ModelSerializer):
+    service_images = ResourceImagesModelSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ResourceModel
         fields = '__all__'
         depth = 1
 
