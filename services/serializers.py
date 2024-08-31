@@ -9,13 +9,18 @@ class BannerSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ServiceModelSerializer(ModelSerializer):
-    class Meta:
-        model = ServiceModel
-        fields = '__all__'
-
-
 class ServiceImagesModelSerializer(ModelSerializer):
     class Meta:
         model = ServiceImagesModel
         fields = '__all__'
+
+class ServiceModelSerializer(ModelSerializer):
+    service_images = ServiceImagesModelSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ServiceModel
+        fields = '__all__'
+        depth = 1
+
+
+
